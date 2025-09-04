@@ -8,3 +8,6 @@ def home(request):
 
 def contact_us(request):
     return HttpResponse("<h1>Contact Us</h1>")
+
+def about_us(request):
+    return HttpResponse("<h1>About Us</h1>")
