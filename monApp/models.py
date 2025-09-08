@@ -25,3 +25,11 @@ class Rayon(models.Model):
 
     def __str__(self):
         return self.nomRayon
+
+class Contenir(models.Model):
+    idRayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, related_name="contient")
+    refProd = models.ForeignKey(Produit, on_delete=models.CASCADE, related_name="contient")
+    qte = models.IntegerField()
+
+    def __str__(self):
+        return "(" + self.idRayon + "," + self.refProd + "," + self.quantite + ")"
