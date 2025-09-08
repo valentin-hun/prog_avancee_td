@@ -18,3 +18,10 @@ class Produit(models.Model):
 
     def __str__(self):
         return self.intituleProd
+    
+class Rayon(models.Model):
+    idRayon = models.AutoField(primary_key=True)
+    nomRayon = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nomRayon
