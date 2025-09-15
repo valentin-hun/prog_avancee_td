@@ -28,14 +28,14 @@ class Produit(models.Model):
     statut = models.ForeignKey(Statut, on_delete=models.CASCADE, related_name="produits", null=True, blank=True)
 
     def __str__(self):
-        return self.intituleProd
+        return "(" + str(self.refProd) + "," + self.intituleProd + "," + str(self.prixUnitaireProd) + ")"
     
 class Rayon(models.Model):
     idRayon = models.AutoField(primary_key=True)
     nomRayon = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.nomRayon
+        return "(" +  str(self.idRayon) + "," + self.nomRayon + ")"
 
 class Contenir(models.Model):
     idRayon = models.ForeignKey(Rayon, on_delete=models.CASCADE, related_name="contient")
@@ -43,5 +43,5 @@ class Contenir(models.Model):
     qte = models.IntegerField()
 
     def __str__(self):
-        return "(" + self.idRayon + "," + self.refProd + "," + self.quantite + ")"
+        return "(" + str(self.idRayon) + "," + str(self.refProd) + "," + str(self.qte) + ")"
     
