@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'monApp',
     'debug_toolbar',
+    'bootstrap5',
 ]
 
 
@@ -124,7 +125,7 @@ INTERNAL_IPS = [
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = (BASE_DIR / 'static/',)
+STATICFILES_DIRS = (BASE_DIR / 'TutoDjango/static/',)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
