@@ -1,8 +1,6 @@
-<html>
-    <head>
-        <title>Mon app DJANGO</title>
-    </head>
-    <body>
+{% extends 'monApp/base.html' %}
+
+{% block contenu %}
         <h1>Hello mes statuts !</h1>
         <p> Il y a {{ stats | length }} statuts </p>
         <ul>
@@ -10,5 +8,4 @@
                 <li>{{ statut.libelleStatus | upper }}</li>
             {% endfor %}
         </ul>
-    </body>
-</html>
+{% endblock %}

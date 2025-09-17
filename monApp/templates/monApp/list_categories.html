@@ -1,8 +1,6 @@
-<html>
-    <head>
-        <title>Mon app DJANGO</title>
-    </head>
-    <body>
+{% extends 'monApp/base.html' %}
+
+{% block contenu %}
         <h1>Hello mes catégories !</h1>
         <p> Il y a {{ cats | length }} catégories </p>
         <ul>
@@ -10,5 +8,4 @@
                 <li>{{ cat.nomCat | upper }}</li>
             {% endfor %}
         </ul>
-    </body>
-</html>
+{% endblock %}

@@ -1,8 +1,6 @@
-<html>
-    <head>
-        <title>Mon app DJANGO</title>
-    </head>
-    <body>
+{% extends 'monApp/base.html' %}
+
+{% block contenu %}
         <h1>Hello notre équipe !</h1>
         <p> Il y a {{ equipe | length }} personnes </p>
         <ul>
@@ -10,5 +8,4 @@
                 <li>{{ personne.username }}</li>
             {% endfor %}
         </ul>
-    </body>
-</html>
+{% endblock %}
