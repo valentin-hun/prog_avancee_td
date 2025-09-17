@@ -4,12 +4,11 @@
     </head>
     <body>
         <h1>Hello mes produits !</h1>
-        <p>Mes produits sont :</p>
-        <!-- TODO : liste des produits -->
-        <ul>
-            <li>{{ prdts.0.intituleProd }}</li>
-            <li>{{ prdts.1.intituleProd }}</li>
-            <li>{{ prdts.2.intituleProd }}</li>
-        </ul>
+        <p>
+            Mes produits sont :
+            {% for prdt in prdts %}
+            {{ prdt.intituleProd }},
+            {% endfor %}
+        </p>
     </body>
 </html>
