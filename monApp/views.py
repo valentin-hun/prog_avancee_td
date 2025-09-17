@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from monApp.models import *
 
-def home(request, param=None):
-    if param is None:
-        return HttpResponse("<h1>Hello Django!</h1>")
-    return HttpResponse("<h1>bonjour "+ param +"!</h1>")
+def home(request):
+    if request.GET and request.GET["test"]:
+        raise Http404
+    return HttpResponse("Bonjour Monde!")
+
+def accueil(request,param):
+    return HttpResponse("<h1>Hello " + param + " ! You're connected</h1>")
 
 # Create your views here.
 
