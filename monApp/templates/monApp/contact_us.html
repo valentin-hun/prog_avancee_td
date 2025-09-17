@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Mon app DJANGO</title>
+    </head>
+    <body>
+        <h1>Hello notre équipe !</h1>
+        <p> Contactez notre support </p>
+        <ul>
+            {% for personne in equipe %}
+                <li>{{ personne.username }} : {{ personne.email }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>

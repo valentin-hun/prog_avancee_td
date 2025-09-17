@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from monApp.models import *
+from django.contrib.auth.models import User
 
 def home(request):
     if request.GET and request.GET["test"]:
@@ -16,22 +17,22 @@ def ListProduits(request):
     prdts = Produit.objects.all()
     return render(request, 'monApp/list_produits.html',{'prdts': prdts})
 
-def categories(request):
+def ListCategories(request):
     cats = Categorie.objects.all()
-    res = ""
-    for cat in cats:
-        res += "<li>" + cat.nomCat + "</li>" 
-    return HttpResponse("<ul>"+ res +"</ul>")
+    return render(request, 'monApp/list_categories.html',{'cats': cats})
 
-def statuts(request):
+def ListStatuts(request):
     stats = Statut.objects.all()
-    res = ""
-    for stat in stats:
-        res += "<li>" + stat.libelle + "</li>" 
-    return HttpResponse("<ul>"+ res +"</ul>")
+    return render(request, 'monApp/list_statuts.html',{'stats': stats})
+
+def ListRayon(request):
+    rayons = Rayon.objects.all()
+    return render(request, 'monApp/list_rayons.html',{'rayons': rayons})
 
 def contact_us(request):
-    return HttpResponse("<h1>Contact Us</h1>")
+    equipe = User.objects.all()
+    return render(request, 'monApp/contact_us.html',{'equipe': equipe})
 
 def about_us(request):
-    return HttpResponse("<h1>About Us</h1>")
+    equipe = User.objects.all()
+    return render(request, 'monApp/about_us.html', {'equipe': equipe})

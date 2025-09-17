@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Mon app DJANGO</title>
+    </head>
+    <body>
+        <h1>Hello notre équipe !</h1>
+        <p> Il y a {{ equipe | length }} personnes </p>
+        <ul>
+            {% for personne in equipe %}
+                <li>{{ personne.username }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
