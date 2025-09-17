@@ -12,12 +12,9 @@ def accueil(request,param):
 
 # Create your views here.
 
-def liste_produits(request):
+def ListProduits(request):
     prdts = Produit.objects.all()
-    res = ""
-    for prod in prdts:
-        res += "<li>" + prod.intituleProd + "</li>" 
-    return HttpResponse("<ul>"+ res +"</ul>")
+    return render(request, 'monApp/list_produits.html',{'prdts': prdts})
 
 def categories(request):
     cats = Categorie.objects.all()
