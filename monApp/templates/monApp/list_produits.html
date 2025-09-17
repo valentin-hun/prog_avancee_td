@@ -5,10 +5,20 @@
     <body>
         <h1>Hello mes produits !</h1>
         <p>
-            Mes produits sont :
+            J'ai
+            {% if prdts|length < 5 %}
+                peu de
+            {% elif prdts|length < 10 %}
+                quelques
+            {% else %}
+                beaucoup de
+            {% endif %}
+            produits préférés.
+            </p>
+        <ul>
             {% for prdt in prdts %}
-            {{ prdt.intituleProd }},
+                <li>{{ prdt.intituleProd | upper }}</li>
             {% endfor %}
-        </p>
+        </ul>
     </body>
 </html>
