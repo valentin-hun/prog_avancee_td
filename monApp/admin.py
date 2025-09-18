@@ -53,7 +53,7 @@ class CategorieAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Produit, ProduitAdmin)
-admin.site.register(Categorie)
+admin.site.register(Categorie, CategorieAdmin)
 admin.site.register(Statut)
 admin.site.register(Rayon)
 admin.site.register(Contenir)
