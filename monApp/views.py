@@ -22,11 +22,22 @@ class HomeView(TemplateView):
         return context
 
 class AboutView(TemplateView):
-    template_name = "monApp/about_us.html"
+    template_name = "monApp/page_home.html"
 
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
         context['titreh1'] = "About us..."
+        return context
+
+    def post(self, request, **kwargs):
+        return render(request, self.template_name)
+    
+class ContactView(TemplateView):
+    template_name = "monApp/page_home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        context['titreh1'] = "Contact us..."
         return context
 
     def post(self, request, **kwargs):
