@@ -47,13 +47,23 @@ class ProduitListView(ListView):
     model = Produit
     template_name = "monApp/list_produits.html"
     context_object_name = "prdts"
-    
+
     def get_queryset(self):
         return Produit.objects.order_by("prixUnitaireProd")
     
     def get_context_data(self, **kwargs):
         context = super(ProduitListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste de mes produits"
+        return context
+    
+class ProduitDetailView(DetailView):
+    model = Produit
+    template_name = "monApp/detail_produit.html"
+    context_object_name = "prdt"
+    
+    def get_context_data(self, **kwargs):
+        context = super(ProduitDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du produit"
         return context
     
 # Create your views here.
