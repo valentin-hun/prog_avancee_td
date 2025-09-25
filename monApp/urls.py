@@ -6,9 +6,9 @@ urlpatterns = [
     path("home/", views.HomeView.as_view(), name="home"),
     path("home/<param>",views.HomeView.as_view(), name='accueil'),
     path("about_us/", views.AboutView.as_view(), name="about_us"),
-    path("produits/",views.ProduitListView.as_view()),
+    path("produits/",views.ProduitListView.as_view(), name="lst_prdts"),
     path("produit/<pk>/",views.ProduitDetailView.as_view(), name="dtl_prdt"),
-    path('categories/',views.ListCategories, name='categories'),
-    path('statuts/',views.ListStatuts, name='statuts'),
-    path('rayons/',views.ListRayons, name='rayons')
+    path('categories/',views.CategorieListView.as_view(), name='lst_cats'),
+    path('statuts/',views.StatuListView.as_view(), name='lst_stats'),
+    path('rayons/',views.RayonListView.as_view(), name='lst_rayons')
 ]

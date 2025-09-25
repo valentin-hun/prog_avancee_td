@@ -66,6 +66,36 @@ class ProduitDetailView(DetailView):
         context['titremenu'] = "Détail du produit"
         return context
     
+class CategorieListView(ListView):
+    model = Categorie
+    template_name = "monApp/list_categories.html"
+    context_object_name = "cats"
+    
+    def get_context_data(self, **kwargs):
+        context = super(CategorieListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des catégories"
+        return context
+    
+class StatuListView(ListView):
+    model = Statut
+    template_name = "monApp/list_statuts.html"
+    context_object_name = "stats"
+    
+    def get_context_data(self, **kwargs):
+        context = super(StatuListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des statuts"
+        return context
+    
+class RayonListView(ListView):
+    model = Rayon
+    template_name = "monApp/list_rayons.html"
+    context_object_name = "rayons"
+    
+    def get_context_data(self, **kwargs):
+        context = super(RayonListView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Liste des rayons"
+        return context
+    
 # Create your views here.
 
 def ListCategories(request):
