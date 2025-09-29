@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import *
+from django.core.mail import send_mail
+from django.shortcuts import redirect
 
 
 def accueil(request,param):
@@ -39,10 +41,18 @@ class AboutView(TemplateView):
 #     template_name = "monApp/page_home.html"
     
 def ContactView(request):
-    form = ContactUsForm()
     titreh1 = "Contact us !"
-    print('La méthode de requête est : ', request.method)
-    print('Les données POST sont : ', request.POST)
+    if request.method=='POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            send_mail(subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via MonProjet Contact Us form',
+                message=form.cleaned_data['message'],
+                from_email=form.cleaned_data['email'],
+                recipient_list=['admin@monprojet.com'],
+            )
+            return redirect('email-sent')
+    else:
+        form = ContactUsForm()
     return render(request, "monApp/page_home.html",{'titreh1':titreh1, 'form':form})
     
 class ProduitListView(ListView):
