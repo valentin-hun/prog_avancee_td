@@ -82,7 +82,8 @@ class ProduitDetailView(DetailView):
 class ProduitForm(forms.ModelForm):
     class Meta:
         model = Produit
-        fields = '__all__'
+        #fields = '__all__'
+        exclude = ('categorie', 'status')
 
 def ProduitCreate(request):
     if request.method == 'POST':
