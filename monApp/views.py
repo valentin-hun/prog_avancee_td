@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
+from monApp.forms import ContactUsForm
 from monApp.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -34,16 +35,15 @@ class AboutView(TemplateView):
     def post(self, request, **kwargs):
         return render(request, self.template_name)
     
-class ContactView(TemplateView):
-    template_name = "monApp/page_home.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(AboutView, self).get_context_data(**kwargs)
-        context['titreh1'] = "Contact us..."
-        return context
-
-    def post(self, request, **kwargs):
-        return render(request, self.template_name)
+# class ContactView(TemplateView):
+#     template_name = "monApp/page_home.html"
+    
+def ContactView(request):
+    form = ContactUsForm()
+    titreh1 = "Contact us !"
+    print('La méthode de requête est : ', request.method)
+    print('Les données POST sont : ', request.POST)
+    return render(request, "monApp/page_home.html",{'titreh1':titreh1, 'form':form})
     
 class ProduitListView(ListView):
     model = Produit
