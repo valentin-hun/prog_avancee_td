@@ -88,14 +88,24 @@ class CategorieDetailView(DetailView):
         context['titremenu'] = "Détail de la catégorie"
         return context
     
-class StatuListView(ListView):
+class StatutListView(ListView):
     model = Statut
     template_name = "monApp/list_statuts.html"
     context_object_name = "stats"
     
     def get_context_data(self, **kwargs):
-        context = super(StatuListView, self).get_context_data(**kwargs)
+        context = super(StatutListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste des statuts"
+        return context
+    
+class StatutDetailView(DetailView):
+    model = Statut
+    template_name = "monApp/detail_statut.html"
+    context_object_name = "stat"
+    
+    def get_context_data(self, **kwargs):
+        context = super(StatutDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du statut"
         return context
     
 class RayonListView(ListView):
@@ -106,6 +116,16 @@ class RayonListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(RayonListView, self).get_context_data(**kwargs)
         context['titremenu'] = "Liste des rayons"
+        return context
+    
+class RayonDetailView(DetailView):
+    model = Rayon
+    template_name = "monApp/detail_rayon.html"
+    context_object_name = "rayon"
+    
+    def get_context_data(self, **kwargs):
+        context = super(RayonDetailView, self).get_context_data(**kwargs)
+        context['titremenu'] = "Détail du rayon"
         return context
     
 class ConnectView(LoginView):
