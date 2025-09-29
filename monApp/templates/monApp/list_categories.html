@@ -13,7 +13,7 @@
         <tbody>
             {% for cat in cats %}
             <tr>
-                <td> {{cat.idCat}} </td>
+                <td><a href="{% url 'dtl_cat' cat.idCat %}">{{ cat.idCat }}</a></td>
                 <td> {{cat.nomCat}} </td>
             </tr>
             {% endfor %}
