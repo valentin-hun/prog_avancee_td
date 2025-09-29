@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
 from monApp.forms import ContactUsForm
+from django import forms
 from monApp.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -77,6 +78,21 @@ class ProduitDetailView(DetailView):
         context = super(ProduitDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du produit"
         return context
+    
+class ProduitForm(forms.ModelForm):
+    class Meta:
+        model = Produit
+        fields = '__all__'
+
+def ProduitCreate(request):
+    if request.method == 'POST':
+        form = ProduitForm(request.POST)
+        if form.is_valid():
+            prdt = form.save()
+            return redirect('dtl-prdt', prdt.refProd)
+    else:
+        form = ProduitForm()
+    return render(request, "monApp/create_produit.html", {'form': form})
     
 class CategorieListView(ListView):
     model = Categorie
