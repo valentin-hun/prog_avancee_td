@@ -18,5 +18,6 @@ urlpatterns = [
     path('login/', views.ConnectView.as_view(), name='login'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('logout/', views.DisconnectView.as_view(), name='logout'),
-    path('home/', views.HomeView.as_view(), name='email-sent')
+    path('home/', views.HomeView.as_view(), name='email-sent'),
+    path("produit/<pk>/update/",views.ProduitUpdate, name="prdt-chng"),
 ]

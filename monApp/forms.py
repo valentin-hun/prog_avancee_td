@@ -1,5 +1,6 @@
 from monApp.models import *
 from django import forms
+from django.forms import BaseModelForm
 
 class ContactUsForm(forms.Form):
     name = forms.CharField(required=False)

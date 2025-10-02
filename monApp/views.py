@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, Http404
-from monApp.forms import ContactUsForm, ProduitForm
+from monApp.forms import *
 from monApp.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
@@ -77,6 +77,19 @@ class ProduitDetailView(DetailView):
         context = super(ProduitDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du produit"
         return context
+    
+def ProduitUpdate(request, pk):
+    prdt = Produit.objects.get(refProd=pk)
+    if request.method == 'POST':
+        form = ProduitForm(request.POST, instance=prdt)
+        if form.is_valid():
+            # mettre à jour le produit existant dans la base de données
+            form.save()
+            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+            return redirect('dtl-prdt', prdt.refProd)
+    else:
+        form = ProduitForm(instance=prdt)
+    return render(request,'monApp/update_produit.html', {'form': form})
 
 def ProduitCreate(request):
     if request.method == 'POST':
