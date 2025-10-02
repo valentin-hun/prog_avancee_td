@@ -2,11 +2,11 @@
 {% block contenu %}
     <h1>Hello {{ param }} !!!</h1>
     <p>{{ message }}</p>
-    
+    {% if form %}
         <form action="" method="post" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form }}
             <button type="submit" class="btn btn-success mt-2">Envoyer</button>
         </form>
-    
+    {%endif%}
 {% endblock %}

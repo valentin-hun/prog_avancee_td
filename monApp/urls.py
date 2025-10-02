@@ -17,5 +17,6 @@ urlpatterns = [
     path("rayon/<pk>/",views.RayonDetailView.as_view(), name="dtl_rayon"),
     path('login/', views.ConnectView.as_view(), name='login'),
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('logout/', views.DisconnectView.as_view(), name='logout')
+    path('logout/', views.DisconnectView.as_view(), name='logout'),
+    path('home/', views.HomeView.as_view(), name='email-sent')
 ]
