@@ -27,6 +27,7 @@
                     <td>{{ prdt.categorie }}</td>
                     <td>{{ prdt.status }}</td>
                     <td><a href="{% url 'prdt-chng' prdt.refProd %}">modifier</a></td>
+                    <td><a href="{% url 'dlt_prdt' prdt.refProd %}">supprimer</a></td>
                 </tr>
             {% endfor %}
         </tbody>

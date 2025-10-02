@@ -20,4 +20,5 @@ urlpatterns = [
     path('logout/', views.DisconnectView.as_view(), name='logout'),
     path('home/', views.HomeView.as_view(), name='email-sent'),
     path("produit/<pk>/update/",views.ProduitUpdate, name="prdt-chng"),
+    path("produit/<pk>/delete/",views.produit_delete, name="dlt_prdt"),
 ]

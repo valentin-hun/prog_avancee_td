@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from monApp.forms import *
 from monApp.models import *
@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import *
 from django.core.mail import send_mail
-from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 
 def accueil(request,param):
@@ -77,19 +77,6 @@ class ProduitDetailView(DetailView):
         context = super(ProduitDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du produit"
         return context
-    
-def ProduitUpdate(request, pk):
-    prdt = Produit.objects.get(refProd=pk)
-    if request.method == 'POST':
-        form = ProduitForm(request.POST, instance=prdt)
-        if form.is_valid():
-            # mettre à jour le produit existant dans la base de données
-            form.save()
-            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
-            return redirect('dtl-prdt', prdt.refProd)
-    else:
-        form = ProduitForm(instance=prdt)
-    return render(request,'monApp/update_produit.html', {'form': form})
 
 def ProduitCreate(request):
     if request.method == 'POST':
@@ -100,6 +87,34 @@ def ProduitCreate(request):
     else:
         form = ProduitForm()
     return render(request, "monApp/create_produit.html", {'form': form})
+
+def ProduitUpdate(request, pk):
+    prdt = Produit.objects.get(refProd=pk)
+    if request.method == 'POST':
+        form = ProduitForm(request.POST, instance=prdt)
+        if form.is_valid():
+            # mettre à jour le produit existant dans la base de données
+            form.save()
+            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+            return redirect('dtl_prdt', prdt.refProd)
+    else:
+        form = ProduitForm(instance=prdt)
+    return render(request,'monApp/update_produit.html', {'form': form})
+
+# class ProduitDeleteView(DeleteView):
+#     model = Produit
+#     template_name = "monApp/delete_produit.html"
+#     success_url = reverse_lazy('lst_prdts')
+
+def produit_delete(request, pk):
+    prdt = Produit.objects.get(refProd=pk) # nécessaire pour GET et pour POST
+    if request.method == 'POST':
+        # supprimer le produit de la base de données
+        prdt.delete()
+        # rediriger vers la liste des produit
+        return redirect('lst-prdts')
+    # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
+    return render(request, 'monApp/delete_produit.html', {'object': prdt})
     
 class CategorieListView(ListView):
     model = Categorie
