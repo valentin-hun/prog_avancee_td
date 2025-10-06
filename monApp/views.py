@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from monApp.forms import *
 from monApp.models import *
+from django.db.models import Count
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
@@ -130,20 +131,29 @@ class CategorieListView(ListView):
     model = Categorie
     template_name = "monApp/list_categories.html"
     context_object_name = "cats"
+
+    def get_queryset(self):    
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
     
     def get_context_data(self, **kwargs):
         context = super(CategorieListView, self).get_context_data(**kwargs)
-        context['titremenu'] = "Liste des catégories"
+        context['titremenu'] = "Liste de mes catégories"
         return context
     
 class CategorieDetailView(DetailView):
     model = Categorie
     template_name = "monApp/detail_categorie.html"
     context_object_name = "cat"
+
+    def get_queryset(self):
+        # Annoter chaque catégorie avec le nombre de produits liés
+        return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
     
     def get_context_data(self, **kwargs):
         context = super(CategorieDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail de la catégorie"
+        context['prdts'] = self.object.produits_categorie.all()
         return context
     
 def CategorieUpdate(request, pk):
