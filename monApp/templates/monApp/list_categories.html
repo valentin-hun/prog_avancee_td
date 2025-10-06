@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block contenu %}
+    <a href="{% url 'crt-cat' %}">Créer une nouvelle catégorie</a>
     <table class="table">
         <thead>
             <th>Id</th>
@@ -15,6 +16,8 @@
             <tr>
                 <td><a href="{% url 'dtl_cat' cat.idCat %}">{{ cat.idCat }}</a></td>
                 <td> {{cat.nomCat}} </td>
+                <td><a href="{% url 'cat-chng' cat.idCat %}">modifier</a></td>
+                <td><a href="{% url 'dlt_cat' cat.idCat %}">supprimer</a></td>
             </tr>
             {% endfor %}
         </tbody>

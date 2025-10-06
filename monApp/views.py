@@ -83,7 +83,7 @@ def ProduitCreate(request):
         form = ProduitForm(request.POST)
         if form.is_valid():
             prdt = form.save()
-            return redirect('dtl-prdt', prdt.refProd)
+            return redirect('dtl_prdt', prdt.refProd)
     else:
         form = ProduitForm()
     return render(request, "monApp/create_produit.html", {'form': form})
@@ -106,15 +106,25 @@ def ProduitUpdate(request, pk):
 #     template_name = "monApp/delete_produit.html"
 #     success_url = reverse_lazy('lst_prdts')
 
-def produit_delete(request, pk):
+def ProduitDelete(request, pk):
     prdt = Produit.objects.get(refProd=pk) # nécessaire pour GET et pour POST
     if request.method == 'POST':
         # supprimer le produit de la base de données
         prdt.delete()
         # rediriger vers la liste des produit
-        return redirect('lst-prdts')
+        return redirect('lst_prdts')
     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
     return render(request, 'monApp/delete_produit.html', {'object': prdt})
+
+def CategorieCreate(request):
+    if request.method == 'POST':
+        form = CategorieForm(request.POST)
+        if form.is_valid():
+            cat = form.save()
+            return redirect('dtl_cat', cat.idCat)
+    else:
+        form = CategorieForm()
+    return render(request, "monApp/create_categorie.html", {'form': form})
     
 class CategorieListView(ListView):
     model = Categorie
@@ -136,6 +146,39 @@ class CategorieDetailView(DetailView):
         context['titremenu'] = "Détail de la catégorie"
         return context
     
+def CategorieUpdate(request, pk):
+    cat = Categorie.objects.get(idCat=pk)
+    if request.method == 'POST':
+        form = CategorieForm(request.POST, instance=cat)
+        if form.is_valid():
+            # mettre à jour le produit existant dans la base de données
+            form.save()
+            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+            return redirect('dtl_cat', cat.idCat)
+    else:
+        form = CategorieForm(instance=cat)
+    return render(request,'monApp/update_categorie.html', {'form': form})
+
+def CategorieDelete(request, pk):
+    cat = Categorie.objects.get(idCat=pk) # nécessaire pour GET et pour POST
+    if request.method == 'POST':
+        # supprimer le produit de la base de données
+        cat.delete()
+        # rediriger vers la liste des produit
+        return redirect('lst_cats')
+    # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
+    return render(request, 'monApp/delete_categorie.html', {'object': cat})
+
+def StatutCreate(request):
+    if request.method == 'POST':
+        form = StatutForm(request.POST)
+        if form.is_valid():
+            stat = form.save()
+            return redirect('dtl_stat', stat.idStatus)
+    else:
+        form = StatutForm()
+    return render(request, "monApp/create_statut.html", {'form': form})
+    
 class StatutListView(ListView):
     model = Statut
     template_name = "monApp/list_statuts.html"
@@ -156,6 +199,39 @@ class StatutDetailView(DetailView):
         context['titremenu'] = "Détail du statut"
         return context
     
+def StatutUpdate(request, pk):
+    stat = Statut.objects.get(idStatus=pk)
+    if request.method == 'POST':
+        form = StatutForm(request.POST, instance=stat)
+        if form.is_valid():
+            # mettre à jour le produit existant dans la base de données
+            form.save()
+            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+            return redirect('dtl_stat', stat.idStatus)
+    else:
+        form = StatutForm(instance=stat)
+    return render(request,'monApp/update_statut.html', {'form': form})
+
+def StatutDelete(request, pk):
+    stat = Statut.objects.get(idStatus=pk) # nécessaire pour GET et pour POST
+    if request.method == 'POST':
+        # supprimer le produit de la base de données
+        stat.delete()
+        # rediriger vers la liste des produit
+        return redirect('lst_stats')
+    # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
+    return render(request, 'monApp/delete_statut.html', {'object': stat})
+
+def RayonCreate(request):
+    if request.method == 'POST':
+        form = RayonForm(request.POST)
+        if form.is_valid():
+            rayon = form.save()
+            return redirect('dtl_rayon', rayon.idRayon)
+    else:
+        form = RayonForm()
+    return render(request, "monApp/create_rayon.html", {'form': form})
+    
 class RayonListView(ListView):
     model = Rayon
     template_name = "monApp/list_rayons.html"
@@ -175,6 +251,29 @@ class RayonDetailView(DetailView):
         context = super(RayonDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du rayon"
         return context
+    
+def RayonUpdate(request, pk):
+    rayon = Rayon.objects.get(idRayon=pk)
+    if request.method == 'POST':
+        form = RayonForm(request.POST, instance=rayon)
+        if form.is_valid():
+            # mettre à jour le produit existant dans la base de données
+            form.save()
+            # rediriger vers la page détaillée du produit que nous venons de mettre à jour
+            return redirect('dtl_rayon', rayon.idRayon)
+    else:
+        form = RayonForm(instance=rayon)
+    return render(request,'monApp/update_rayon.html', {'form': form})
+
+def RayonDelete(request, pk):
+    rayon = Rayon.objects.get(idRayon=pk) # nécessaire pour GET et pour POST
+    if request.method == 'POST':
+        # supprimer le produit de la base de données
+        rayon.delete()
+        # rediriger vers la liste des produit
+        return redirect('lst_rayons')
+    # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
+    return render(request, 'monApp/delete_rayon.html', {'object': rayon})
     
 class ConnectView(LoginView):
     template_name = 'monApp/page_login.html'

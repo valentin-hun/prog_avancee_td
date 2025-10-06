@@ -12,4 +12,6 @@
 <ul>
     <li>Nom catégorie : {{ stat.libelleStatus }} </li>
 </ul>
+<a href="{% url 'stat-chng' stat.idStatus %}">modifier</a>
+<a href="{% url 'dlt_stat' stat.idStatus %}">supprimer</a>
 {% endblock %}

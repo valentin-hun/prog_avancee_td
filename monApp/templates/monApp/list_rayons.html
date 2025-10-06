@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block contenu %}
+    <a href="{% url 'crt-rayon' %}">Créer un nouveau rayon</a>
     <table class="table">
         <thead>
             <th>Id</th>
@@ -15,6 +16,8 @@
             <tr>
                 <td><a href="{% url 'dtl_rayon' rayon.idRayon %}">{{ rayon.idRayon }}</a></td>
                 <td> {{rayon.nomRayon}} </td>
+                <td><a href="{% url 'rayon-chng' rayon.idRayon %}">modifier</a></td>
+                <td><a href="{% url 'dlt_rayon' rayon.idRayon %}">supprimer</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -12,4 +12,6 @@
 <ul>
     <li>Nom catégorie : {{ rayon.nomRayon }} </li>
 </ul>
+<a href="{% url 'rayon-chng' rayon.idRayon %}">modifier</a>
+<a href="{% url 'dlt_rayon' rayon.idRayon %}">supprimer</a>
 {% endblock %}

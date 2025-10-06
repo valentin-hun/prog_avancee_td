@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block contenu %}
+    <a href="{% url 'crt-stat' %}">Créer un nouveau statut</a>
     <table class="table">
         <thead>
             <th>Id</th>
@@ -15,6 +16,8 @@
             <tr>
                 <td><a href="{% url 'dtl_stat' statut.idStatus %}">{{ statut.idStatus }}</a></td>
                 <td> {{statut.libelleStatus}} </td>
+                <td><a href="{% url 'stat-chng' statut.idStatus %}">modifier</a></td>
+                <td><a href="{% url 'dlt_stat' statut.idStatus %}">supprimer</a></td>
             </tr>
             {% endfor %}
         </tbody>
