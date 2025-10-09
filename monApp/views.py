@@ -6,9 +6,11 @@ from django.db.models import Count, Prefetch
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.views.generic import *
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 
 
 def accueil(request,param):
@@ -79,6 +81,7 @@ class ProduitDetailView(DetailView):
         context['titremenu'] = "Détail du produit"
         return context
 
+@login_required
 def ProduitCreate(request):
     if request.method == 'POST':
         form = ProduitForm(request.POST)
@@ -117,6 +120,7 @@ def ProduitDelete(request, pk):
     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
     return render(request, 'monApp/delete_produit.html', {'object': prdt})
 
+@login_required
 def CategorieCreate(request):
     if request.method == 'POST':
         form = CategorieForm(request.POST)
@@ -179,6 +183,7 @@ def CategorieDelete(request, pk):
     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
     return render(request, 'monApp/delete_categorie.html', {'object': cat})
 
+@login_required
 def StatutCreate(request):
     if request.method == 'POST':
         form = StatutForm(request.POST)
@@ -232,6 +237,7 @@ def StatutDelete(request, pk):
     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
     return render(request, 'monApp/delete_statut.html', {'object': stat})
 
+@login_required
 def RayonCreate(request):
     if request.method == 'POST':
         form = RayonForm(request.POST)
