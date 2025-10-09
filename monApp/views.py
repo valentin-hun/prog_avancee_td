@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from monApp.forms import *
 from monApp.models import *
-from django.db.models import Count
+from django.db.models import Count, Prefetch
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import authenticate, login, logout
@@ -62,7 +62,7 @@ class ProduitListView(ListView):
     context_object_name = "prdts"
 
     def get_queryset(self):
-        return Produit.objects.order_by("prixUnitaireProd")
+        return Produit.objects.select_related('categorie').select_related('status')
     
     def get_context_data(self, **kwargs):
         context = super(ProduitListView, self).get_context_data(**kwargs)
@@ -246,6 +246,11 @@ class RayonListView(ListView):
     model = Rayon
     template_name = "monApp/list_rayons.html"
     context_object_name = "rayons"
+
+    def get_queryset(self):
+        # Précharge tous les "contenir" de chaque rayon,
+        # et en même temps le produit de chaque contenir
+        return Rayon.objects.prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
     
     def get_context_data(self, **kwargs):
         context = super(RayonListView, self).get_context_data(**kwargs)
