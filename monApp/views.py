@@ -64,6 +64,9 @@ class ProduitListView(ListView):
     context_object_name = "prdts"
 
     def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            return Produit.objects.filter(intituleProd__icontains=query).select_related('categorie').select_related('status')
         return Produit.objects.select_related('categorie').select_related('status')
     
     def get_context_data(self, **kwargs):
@@ -139,7 +142,9 @@ class CategorieListView(ListView):
     context_object_name = "cats"
 
     def get_queryset(self):    
-        # Annoter chaque catégorie avec le nombre de produits liés
+        query = self.request.GET.get('search')
+        if query:
+            return Categorie.objects.filter(nomCat__icontains=query).annotate(nb_produits=Count('produits_categorie'))
         return Categorie.objects.annotate(nb_produits=Count('produits_categorie'))
     
     def get_context_data(self, **kwargs):
@@ -204,6 +209,9 @@ class StatutListView(ListView):
     context_object_name = "stats"
 
     def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            return Statut.objects.filter(libelleStatus__icontains=query).annotate(nb_produits=Count('produits_status'))
         return Statut.objects.annotate(nb_produits=Count('produits_status'))
     
     def get_context_data(self, **kwargs):
@@ -267,6 +275,9 @@ class RayonListView(ListView):
     context_object_name = "rayons"
 
     def get_queryset(self):
+        query = self.request.GET.get('search')
+        if query:
+            return Rayon.objects.filter(nomRayon__icontains=query).prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
         # Précharge tous les "contenir" de chaque rayon,
         # et en même temps le produit de chaque contenir
         return Rayon.objects.prefetch_related(Prefetch("contenir_rayon", queryset=Contenir.objects.select_related("produit")))
