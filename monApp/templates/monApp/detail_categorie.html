@@ -17,14 +17,14 @@
         </ul>
         <div class="car-footer text-center">
             <a href="{% url 'cat-chng' cat.idCat %}" class="btn btn-warning mt-2">Modifier</a>
-            <a href="{% url 'dtl_cat' cat.idCat %}" class="btn btn-danger mt-2">Supprimer</a>
+            <a href="{% url 'dlt_cat' cat.idCat %}" class="btn btn-danger mt-2">Supprimer</a>
             <a href="{% url 'lst_cats'%}" class="btn btn-info mt-2">Retour</a>
         </div>
     </div>
 </div>
 <div class="card mb-4">
     <div class="card-header bg-primary text-white">
-        <h4>Cette catégorie contient <strong>{{ ctgr.nb_produits }}</strong> produit(s)</h4>
+        <h4>Cette catégorie contient <strong>{{ cat.nb_produits }}</strong> produit(s)</h4>
     </div>
     <div class="card-body">
         <div class="row">

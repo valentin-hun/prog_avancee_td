@@ -198,6 +198,9 @@ class StatutListView(ListView):
     model = Statut
     template_name = "monApp/list_statuts.html"
     context_object_name = "stats"
+
+    def get_queryset(self):
+        return Statut.objects.annotate(nb_produits=Count('produits_status'))
     
     def get_context_data(self, **kwargs):
         context = super(StatutListView, self).get_context_data(**kwargs)
@@ -208,10 +211,14 @@ class StatutDetailView(DetailView):
     model = Statut
     template_name = "monApp/detail_statut.html"
     context_object_name = "stat"
+
+    def get_queryset(self):
+        return Statut.objects.annotate(nb_produits=Count('produits_status'))
     
     def get_context_data(self, **kwargs):
         context = super(StatutDetailView, self).get_context_data(**kwargs)
         context['titremenu'] = "Détail du statut"
+        context['prdts'] = self.object.produits_status.all()
         return context
     
 def StatutUpdate(request, pk):
