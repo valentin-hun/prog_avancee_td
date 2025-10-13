@@ -92,6 +92,7 @@ def ProduitCreate(request):
         form = ProduitForm()
     return render(request, "monApp/create_produit.html", {'form': form})
 
+@login_required
 def ProduitUpdate(request, pk):
     prdt = Produit.objects.get(refProd=pk)
     if request.method == 'POST':
@@ -110,6 +111,7 @@ def ProduitUpdate(request, pk):
 #     template_name = "monApp/delete_produit.html"
 #     success_url = reverse_lazy('lst_prdts')
 
+@login_required
 def ProduitDelete(request, pk):
     prdt = Produit.objects.get(refProd=pk) # nécessaire pour GET et pour POST
     if request.method == 'POST':
@@ -160,6 +162,7 @@ class CategorieDetailView(DetailView):
         context['prdts'] = self.object.produits_categorie.all()
         return context
     
+@login_required    
 def CategorieUpdate(request, pk):
     cat = Categorie.objects.get(idCat=pk)
     if request.method == 'POST':
@@ -173,6 +176,7 @@ def CategorieUpdate(request, pk):
         form = CategorieForm(instance=cat)
     return render(request,'monApp/update_categorie.html', {'form': form})
 
+@login_required
 def CategorieDelete(request, pk):
     cat = Categorie.objects.get(idCat=pk) # nécessaire pour GET et pour POST
     if request.method == 'POST':
@@ -221,6 +225,7 @@ class StatutDetailView(DetailView):
         context['prdts'] = self.object.produits_status.all()
         return context
     
+@login_required
 def StatutUpdate(request, pk):
     stat = Statut.objects.get(idStatus=pk)
     if request.method == 'POST':
@@ -234,6 +239,7 @@ def StatutUpdate(request, pk):
         form = StatutForm(instance=stat)
     return render(request,'monApp/update_statut.html', {'form': form})
 
+@login_required
 def StatutDelete(request, pk):
     stat = Statut.objects.get(idStatus=pk) # nécessaire pour GET et pour POST
     if request.method == 'POST':
@@ -301,6 +307,7 @@ class RayonDetailView(DetailView):
         context['total_nb_produit'] = total_nb_produit
         return context
     
+@login_required
 def RayonUpdate(request, pk):
     rayon = Rayon.objects.get(idRayon=pk)
     if request.method == 'POST':
@@ -314,6 +321,7 @@ def RayonUpdate(request, pk):
         form = RayonForm(instance=rayon)
     return render(request,'monApp/update_rayon.html', {'form': form})
 
+@login_required
 def RayonDelete(request, pk):
     rayon = Rayon.objects.get(idRayon=pk) # nécessaire pour GET et pour POST
     if request.method == 'POST':
