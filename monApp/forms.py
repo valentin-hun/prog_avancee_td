@@ -27,3 +27,8 @@ class RayonForm(forms.ModelForm):
     class Meta:
         model = Rayon
         fields = '__all__'
+
+class ContenirForm(forms.ModelForm):
+    class Meta:
+        model = Contenir
+        fields = ['produit', 'Qte']

@@ -342,6 +342,17 @@ def RayonDelete(request, pk):
         return redirect('lst_rayons')
     # pas besoin de « else » ici. Si c'est une demande GET, continuez simplement
     return render(request, 'monApp/delete_rayon.html', {'object': rayon})
+
+class ContenirCreateView(CreateView):
+    model = Contenir
+    form_class = ContenirForm
+    template_name = "monApp/create_contenir.html"
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        pdrt = Contenir.objects.get(Produit)
+        if form.is_valid():
+            rayon = form.save()
+            return redirect('cntnr-crt', rayon.idRayon)
     
 class ConnectView(LoginView):
     template_name = 'monApp/page_login.html'
